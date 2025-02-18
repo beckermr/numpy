@@ -181,6 +181,14 @@ class MesonBackend(Backend):
 
     def run_meson(self, build_dir: Path):
         setup_command = ["meson", "setup", self.meson_build_dir]
+        if "F2PY_MESON_CROSS_FILE" in os.environ:
+            setup_command = [
+                "meson",
+                "setup",
+                "--cross-file",
+                os.environ["F2PY_MESON_CROSS_FILE"],
+                self.meson_build_dir,
+            ]
         self._run_subprocess_command(setup_command, build_dir)
         compile_command = ["meson", "compile", "-C", self.meson_build_dir]
         self._run_subprocess_command(compile_command, build_dir)
