@@ -182,6 +182,7 @@ class MesonBackend(Backend):
     def run_meson(self, build_dir: Path):
         setup_command = ["meson", "setup", self.meson_build_dir]
         if "F2PY_MESON_CROSS_FILE" in os.environ:
+            print("injecting MESON --cross-file:", os.environ["F2PY_MESON_CROSS_FILE"], flush=True)
             setup_command = [
                 "meson",
                 "setup",
